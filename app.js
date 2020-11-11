@@ -4,16 +4,22 @@ const port = 3000;
 const { User, db } = require('./db');
 
 app.get('/', async (req, res) => {
-  await db.sync();
-  const users = await User.findAll();
+  try {
+    await db.sync();
+    const users = await User.findAll();
 
-  res.send(users);
+    res.send(users);
+  } catch (error) {
+    res.send(error);
+  }
 });
 app.get('/create', (req, res) => {
+  let user = req.query.user;
+  let like = req.query.like;
   User.create({
-    username: 'Scott',
+    username: user,
     jsonField: {
-      likes: ['running', 'node'],
+      likes: [like],
     },
   })
     .then(function (user) {
@@ -21,7 +27,7 @@ app.get('/create', (req, res) => {
       return user.save();
     })
     .then(function (user) {
-      res.send('Hello World!');
+      res.send('User created');
     });
 });
 
