@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const { User, db } = require('./db');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
   try {
@@ -29,6 +31,17 @@ app.get('/create', (req, res) => {
     .then(function (user) {
       res.send('User created');
     });
+});
+
+app.post('/create', (req, res) => {
+  let data = req.body;
+
+  User.create({
+    username: 'user',
+    jsonField: data,
+  }).then(function (user) {
+    res.send('User created');
+  });
 });
 
 app.listen(port, () => {
