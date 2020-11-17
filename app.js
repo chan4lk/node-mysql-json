@@ -51,6 +51,26 @@ app.put('/user/:id', (req, res) => {
     .catch((e) => res.status(400).send(e));
 });
 
+app.put('/user/:id/likes', (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      const json = { ...user.jsonField };
+      json.likes = json.likes || [];
+      if (Array.isArray(json.likes)) {
+        json.likes.push(req.body.likes);
+      } else {
+        json.likes = req.body.likes;
+      }
+
+      // Reassign to trigger update.
+      user.jsonField = json;
+
+      return user.save();
+    })
+    .then((resp) => res.send('User likes updated'))
+    .catch((e) => res.status(400).send(e));
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
