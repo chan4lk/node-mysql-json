@@ -28,7 +28,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"chandima\",\r\n    \"custom\": 2,\r\n    \"likes\": true\r\n}",
+					"raw": "{\r\n    \"name\": \"chandima 1\",\r\n    \"custom\": 2,\r\n    \"likes\": true\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -36,14 +36,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/create",
+					"raw": "http://localhost:3000/user",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"create"
+						"user"
 					]
 				}
 			},
@@ -55,14 +55,64 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/4",
+					"raw": "http://localhost:3000/user/5",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"4"
+						"user",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"chandima 122\",\r\n    \"custom\": 2,\r\n    \"likes\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"2"
 					]
 				}
 			},

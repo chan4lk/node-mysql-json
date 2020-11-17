@@ -12,42 +12,43 @@ app.get('/', async (req, res) => {
 
     res.send(users);
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error);
   }
 });
-app.get('/create', (req, res) => {
-  let user = req.query.user;
-  let like = req.query.like;
-  User.create({
-    username: user,
-    jsonField: {
-      likes: [like],
-    },
-  })
-    .then(function (user) {
-      user.jsonField.likes.push('tests');
-      return user.save();
-    })
-    .then(function (user) {
-      res.send('User created');
-    });
+app.get('/user/:id', (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => res.send(user))
+    .catch((e) => res.status(400).send(e));
 });
 
-app.post('/create', (req, res) => {
+app.post('/user', (req, res) => {
   let data = req.body;
 
   User.create({
     username: 'user',
     jsonField: data,
-  }).then(function (user) {
-    res.send('User created');
-  });
+  })
+    .then(function (user) {
+      res.send('User created');
+    })
+    .catch((e) => res.status(400).send(e));
 });
 
-app.delete('/:id', (req, res) => {
+app.delete('/user/:id', (req, res) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => user.destroy())
-    .then((resp) => res.send('User deleted'));
+    .then((resp) => res.send('User deleted'))
+    .catch((e) => res.status(400).send(e));
+});
+
+app.put('/user/:id', (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => {
+      user.jsonField = req.body;
+      return user.save();
+    })
+    .then((resp) => res.send('User updated'))
+    .catch((e) => res.status(400).send(e));
 });
 
 app.listen(port, () => {
