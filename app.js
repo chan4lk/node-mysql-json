@@ -44,6 +44,12 @@ app.post('/create', (req, res) => {
   });
 });
 
+app.delete('/:id', (req, res) => {
+  User.findOne({ where: { id: req.params.id } })
+    .then((user) => user.destroy())
+    .then((resp) => res.send('User deleted'));
+});
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

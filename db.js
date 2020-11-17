@@ -1,14 +1,15 @@
 var JsonField = require('./json_field');
-var Sequelize = require('sequelize'),
-  db,
-  User;
+const { Sequelize } = require('sequelize');
 
-db = new Sequelize('Test', 'root', '1qaz2wsx@', {
+/**
+ * @type {Sequelize}
+ */
+var db = new Sequelize('Test', 'root', '1qaz2wsx@', {
   dialect: 'mysql',
   logging: false,
 });
 
-User = db.define('User', {
+var User = db.define('User', {
   username: Sequelize.STRING,
   jsonField: JsonField(db, 'User', 'jsonField'),
 });
